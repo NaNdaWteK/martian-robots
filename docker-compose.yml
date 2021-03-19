@@ -1,0 +1,10 @@
+version: "3"
+services:
+  martian-robots:
+    build: .
+    ports:
+      - "8080:8080"
+    env_file:
+      - .env.testing
+    volumes:
+      - ./.:/usr/src/app/.
