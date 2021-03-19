@@ -10,11 +10,11 @@ jobs:
     steps:
       - name: Check out the repo
         uses: actions/checkout@v2
-      - name: Push to GitHub Packages
-        uses: docker/build-push-action@v1
+      - name: Build and push
+        id: docker_build
+        uses: docker/build-push-action@v2
         with:
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_REGISTRY_TOKEN }}
-          registry: docker.pkg.github.com
-          repository: NaNdaWteK/martian-robots/martian-robots
-          tag_with_ref: true
+          push: true
+          tags: NaNdaWteK/martian-robots:latest
+          secrets: |
+            GIT_AUTH_TOKEN=${{ secrets.REGISTRY_TOKEN }}
