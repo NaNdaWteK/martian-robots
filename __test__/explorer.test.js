@@ -9,8 +9,8 @@ describe('Explorer', () => {
 
     const explorer = new Explorer(inputTxtReader)
 
-    expect(explorer.planet.horizontalSize).toBe(3)
-    expect(explorer.planet.verticalSize).toBe(5)
+    expect(explorer.planet.horizontalSize).toBe(5)
+    expect(explorer.planet.verticalSize).toBe(3)
     expect(explorer.robots.length).toBe(3)
   })
 })

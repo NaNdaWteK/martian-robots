@@ -1,5 +1,5 @@
 class Planet {
-  constructor (verticalSize, horizontalSize) {
+  constructor (horizontalSize, verticalSize) {
     this.verticalSize = verticalSize
     this.horizontalSize = horizontalSize
   }

@@ -7,7 +7,7 @@ describe('Planet', () => {
 
     const planet = new Planet(verticalSize, horizontalSize)
 
-    expect(planet.verticalSize).toBe(5)
-    expect(planet.horizontalSize).toBe(3)
+    expect(planet.verticalSize).toBe(3)
+    expect(planet.horizontalSize).toBe(5)
   })
 })

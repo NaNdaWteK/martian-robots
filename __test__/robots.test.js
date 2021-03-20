@@ -1,4 +1,5 @@
 const Robot = require('../domain/Robot')
+const Planet = require('../domain/Planet')
 const Validations = require('../domain/Validations')
 
 describe('Robot', () => {
@@ -21,15 +22,33 @@ describe('Robot', () => {
   test('can execute movements', () => {
     const positionLine = '1 1 E'
     const movementsLine = 'RFRFRFRF'
+    const planet = new Planet(5, 3)
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
     const movements = Validations.prepareRobotsMovement(movementsLine)
     const robot = new Robot(movements)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.move()
+    robot.move(planet)
 
     expect(robot.xPosition).toBe(1)
     expect(robot.yPosition).toBe(1)
     expect(robot.orientation).toBe('E')
+    expect(robot.lost).toBe(false)
+  })
+  test('can be lost', () => {
+    const positionLine = '3 2 N'
+    const movementsLine = 'FRRFLLFFRRFLL'
+    const planet = new Planet(5, 3)
+
+    const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
+    const movements = Validations.prepareRobotsMovement(movementsLine)
+    const robot = new Robot(movements)
+    robot.setPosition(xPosition, yPosition, orientation)
+    robot.move(planet)
+
+    expect(robot.xPosition).toBe(3)
+    expect(robot.yPosition).toBe(3)
+    expect(robot.orientation).toBe('N')
+    expect(robot.lost).toBe(true)
   })
 })

@@ -3,33 +3,18 @@ const Direction = require('./Direction')
 class Robot {
   constructor (movements) {
     this.movements = movements
+    this.lost = false
   }
 
-  move () {
-    const movementsToDo = [...this.movements]
-    movementsToDo.forEach(movement => {
+  move (planet) {
+    for (const movement of this.movements) {
       if (movement !== 'F') {
         this._rotateRobot(movement)
       } else {
-        this._moveForward();
+        this._moveForward(planet)
       }
-    })
-  }
-
-  _moveForward() {
-    if (this.orientation === 'N') {
-      this.yPosition += 1
-    } else if (this.orientation === 'S') {
-      this.yPosition -= 1
-    } else if (this.orientation === 'E') {
-      this.xPosition += 1
-    } else if (this.orientation === 'W') {
-      this.xPosition -= 1
+      if (this.lost) break
     }
-  }
-
-  _rotateRobot(movement) {
-    this.orientation = Direction.from(this.orientation).rotateTo(movement)
   }
 
   setPosition (xPosition, yPosition, orientation) {
@@ -48,6 +33,55 @@ class Robot {
 
   setYPosition (yPosition) {
     this.yPosition = yPosition
+  }
+
+  _moveForward(planet) {
+    if (this.orientation === 'N') {
+      this._moveToNorth(planet)
+    } else if (this.orientation === 'S') {
+      this._moveToSouth(planet)
+    } else if (this.orientation === 'E') {
+      this._moveToEast(planet)
+    } else if (this.orientation === 'W') {
+      this._moveToWest(planet)
+    }
+
+  }
+
+  _moveToWest(planet) {
+    const position = this.xPosition - 1
+    if (this._isLostOnHorizontalAxis(position, planet.horizontalSize)) return this.lost = true
+    this.xPosition = position
+  }
+
+  _moveToEast(planet) {
+    const position = this.xPosition + 1
+    if (this._isLostOnHorizontalAxis(position, planet.horizontalSize)) return this.lost = true
+    this.xPosition = position
+  }
+
+  _moveToSouth(planet) {
+    const position = this.yPosition - 1
+    if (this._isLostOnVerticalAxis(position, planet.verticalSize)) return this.lost = true
+    this.yPosition = position
+  }
+
+  _moveToNorth(planet) {
+    const position = this.yPosition + 1
+    if (this._isLostOnVerticalAxis(position, planet.verticalSize)) return this.lost = true
+    this.yPosition = position
+  }
+
+  _isLostOnHorizontalAxis(position, horizontalSize) {
+    return position > horizontalSize || position < 0;
+  }
+
+  _isLostOnVerticalAxis(position, verticalSize) {
+    return position > verticalSize || position < 0;
+  }
+
+  _rotateRobot(movement) {
+    this.orientation = Direction.from(this.orientation).rotateTo(movement)
   }
 }
 
