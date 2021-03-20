@@ -10,7 +10,7 @@ describe('Validate', () => {
     expect(horizontalSize).toBe(3)
   })
 
-  test('prepare rotob position from input line', () => {
+  test('prepare robot position from input line', () => {
     const inputLine = '1 0 E'
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(inputLine)
@@ -18,6 +18,14 @@ describe('Validate', () => {
     expect(xPosition).toBe(1)
     expect(yPosition).toBe(0)
     expect(orientation).toBe('E')
+  })
+
+  test('prepare robot movements', () => {
+    const line = 'RFRFRFRF'
+
+    const result = Validations.prepareRobotsMovement(line)
+
+    expect(result.length).toBe(8)
   })
 
   test('known errors in input mars line', () => {
@@ -40,6 +48,25 @@ describe('Validate', () => {
       expect(error.message).toBe('Some errors checking Robots position input line')
       expect(error.status).toBe('KO')
       expect(error.errors.length).toBe(2)
+    }
+  })
+  test('known errors if there are no valid robots movements in line', () => {
+    const lineWithInvalidChars = 'LRA'
+
+    try {
+      Validations.prepareRobotsMovement(lineWithInvalidChars)
+    } catch (error) {
+      expect(error.message).toBe('Error in robot movements')
+      expect(error.status).toBe('KO')
+      expect(error.errors.length).toBe(1)
+    }
+    try {
+      const lineWithSpaces = 'LR F'
+      Validations.prepareRobotsMovement(lineWithSpaces)
+    } catch (error) {
+      expect(error.message).toBe('Error in robot movements')
+      expect(error.status).toBe('KO')
+      expect(error.errors.length).toBe(1)
     }
   })
 })

@@ -1,4 +1,7 @@
 class Robot {
+  constructor (movements) {
+    this.movements = movements
+  }
   setOrientation (orientation) {
     this.orientation = orientation
   }

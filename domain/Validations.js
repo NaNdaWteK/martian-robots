@@ -55,6 +55,22 @@ class Validations {
     }
   }
 
+  static prepareRobotsMovement (line) {
+    const errors = []
+    const validMovements = ['L', 'R', 'F']
+    if (line.includes(' ')) errors.push('Some movements are not valid')
+    const result = line.split('')
+    const resultValidation = result.filter(movement => validMovements.includes(movement))
+    if (!errors.length && resultValidation.length !== result.length) {
+      errors.push('Some movements are not valid')
+    }
+    if (errors.length) {
+      throw ValidationException('Error in robot movements', errors)
+    }
+
+    return result
+  }
+
   static _isANumber (value) {
     return value && !isNaN(parseInt(value))
   }
