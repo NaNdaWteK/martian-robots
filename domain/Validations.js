@@ -64,9 +64,11 @@ class Validations {
   }
 
   static prepareRobotsMovement (line) {
+    const MAX_INSTRUCTIONS_SIZE = 100
     const errors = []
     const validMovements = ['L', 'R', 'F']
     if (line.includes(' ')) errors.push('Some movements are not valid')
+    if (line.length > MAX_INSTRUCTIONS_SIZE) errors.push('Robot exceed the maximum instructions')
     const result = line.split('')
     const resultValidation = result.filter(movement => validMovements.includes(movement))
     if (!errors.length && resultValidation.length !== result.length) {
