@@ -1,8 +1,8 @@
-class Mars {
+class Planet {
   constructor (verticalSize, horizontalSize) {
     this.verticalSize = verticalSize
     this.horizontalSize = horizontalSize
   }
 }
 
-module.exports = Mars
+module.exports = Planet

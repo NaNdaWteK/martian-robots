@@ -8,21 +8,21 @@ const ValidationException = (message, errors)  => {
 ValidationException.prototype = Error.prototype
 
 class Validations {
-  static prepareMarsInputLine (line) {
+  static preparePlanetInputLine (line) {
     const MAX_LINE_SIZE = 5
     const MIN_LINE_SIZE = 3
     const errors = []
     const [upper, right] = line.split(' ')
-    if (line.length > MAX_LINE_SIZE) errors.push('Mars input line is to big')
-    if (line.length < MIN_LINE_SIZE) errors.push('Mars input line is to small')
+    if (line.length > MAX_LINE_SIZE) errors.push('Planet input line is to big')
+    if (line.length < MIN_LINE_SIZE) errors.push('Planet input line is to small')
     if (!Validations._isANumber(upper) || !Validations._isANumber(right)) {
-      errors.push('Mars input types are not valid')
+      errors.push('Planet input types are not valid')
     }
     if (Validations._isCoordinateGreaterThanMaximum(upper) || Validations._isCoordinateGreaterThanMaximum(right)) {
-      errors.push('Mars coordinates exceed the maximum')
+      errors.push('Planet coordinates exceed the maximum')
     }
     if (errors.length) {
-      throw ValidationException('Some errors checking Mars input line', errors)
+      throw ValidationException('Some errors checking Planet input line', errors)
     }
     const verticalSize = parseInt(upper)
     const horizontalSize = parseInt(right)

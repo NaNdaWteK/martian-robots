@@ -1,10 +1,10 @@
 const Validations = require('../domain/Validations')
 
 describe('Validate', () => {
-  test('prepare mars coordinates from input line', () => {
+  test('prepare planet coordinates from input line', () => {
     const inputLine = '5 3'
 
-    const { verticalSize, horizontalSize } = Validations.prepareMarsInputLine(inputLine)
+    const { verticalSize, horizontalSize } = Validations.preparePlanetInputLine(inputLine)
 
     expect(verticalSize).toBe(5)
     expect(horizontalSize).toBe(3)
@@ -28,15 +28,15 @@ describe('Validate', () => {
     expect(result.length).toBe(8)
   })
 
-  test('known errors in input mars line', () => {
+  test('known errors in input planet line', () => {
     const line = '5 X'
 
     try {
-      Validations.prepareMarsInputLine(line)
+      Validations.preparePlanetInputLine(line)
     } catch (error) {
-      expect(error.message).toBe('Some errors checking Mars input line')
+      expect(error.message).toBe('Some errors checking Planet input line')
       expect(error.status).toBe('KO')
-      expect(error.errors[0]).toBe('Mars input types are not valid')
+      expect(error.errors[0]).toBe('Planet input types are not valid')
     }
   })
   test('known errors in input robots position line', () => {
@@ -70,15 +70,15 @@ describe('Validate', () => {
     }
   })
 
-  test('known if Mars coordinates exceed maximum', () => {
+  test('known if Planet coordinates exceed maximum', () => {
     const inputLine = '1 51'
 
     try {
-      Validations.prepareMarsInputLine(inputLine)
+      Validations.preparePlanetInputLine(inputLine)
     } catch (error) {
-      expect(error.message).toBe('Some errors checking Mars input line')
+      expect(error.message).toBe('Some errors checking Planet input line')
       expect(error.status).toBe('KO')
-      expect(error.errors[0]).toBe('Mars coordinates exceed the maximum')
+      expect(error.errors[0]).toBe('Planet coordinates exceed the maximum')
     }
   })
 
