@@ -1,16 +1,20 @@
 const Robot = require('../domain/Robot')
+const Validations = require('../domain/Validations')
 
 describe('Robot', () => {
-  test('know if started position', () => {
-    const movements = ["R", "F", "R", "F", "R", "F", "R", "F"]
+  test('can be initialized with valid data', () => {
+    const movementsResult = ["R", "F", "R", "F", "R", "F", "R", "F"]
+    const positionLine = '1 0 E'
+    const movementsLine = 'RFRFRFRF'
+
+    const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
+    const movements = Validations.prepareRobotsMovement(movementsLine)
     const robot = new Robot(movements)
-    robot.setOrientation('E')
-    robot.setXPosition(1)
-    robot.setYPosition(0)
+    robot.setPosition(xPosition, yPosition, orientation)
 
     expect(robot.xPosition).toBe(1)
     expect(robot.yPosition).toBe(0)
     expect(robot.orientation).toBe('E')
-    expect(robot.movements).toMatchObject(movements)
+    expect(robot.movements).toMatchObject(movementsResult)
   })
 })
