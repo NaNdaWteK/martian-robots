@@ -1,15 +1,14 @@
-const Validations = require('./Validations')
-
 class Robot {
-  constructor (positionLine) {
-    this._valid(positionLine)
-    this.xPosition = parseInt(positionLine[0])
-    this.yPosition = parseInt(positionLine[2])
-    this.orientation = positionLine[4]
+  setOrientation (orientation) {
+    this.orientation = orientation
   }
 
-  _valid (line) {
-    Validations.checkRobotInputPositionLine(line)
+  setXPosition (xPosition) {
+    this.xPosition = xPosition
+  }
+
+  setYPosition (yPosition) {
+    this.yPosition = yPosition
   }
 }
 

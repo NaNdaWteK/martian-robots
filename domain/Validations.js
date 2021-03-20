@@ -8,9 +8,8 @@ const ValidationException = (message, errors)  => {
 ValidationException.prototype = Error.prototype
 
 class Validations {
-  static checkMarsInputLine (line) {
+  static prepareMarsInputLine (line) {
     const LINE_SIZE = 3
-    const VALID = true
     const errors = []
     if (line.length > LINE_SIZE) errors.push('Mars input line is to big')
     if (line.length < LINE_SIZE) errors.push('Mars input line is to small')
@@ -21,13 +20,17 @@ class Validations {
     if (errors.length) {
       throw ValidationException('Some errors checking Mars input line', errors)
     }
+    const verticalSize = parseInt(line[0])
+    const horizontalSize = parseInt(line[2])
 
-    return VALID
+    return {
+      verticalSize,
+      horizontalSize
+    }
   }
 
-  static checkRobotInputPositionLine (line) {
+  static prepareRobotInputPositionLine (line) {
     const LINE_SIZE = 5
-    const VALID = true
     const validOrientationDirections = ['N', 'S', 'E', 'W']
     const errors = []
     if (line.length > LINE_SIZE) errors.push('Robot input position line is to big')
@@ -41,8 +44,15 @@ class Validations {
     if (errors.length) {
       throw ValidationException('Some errors checking Robots position input line', errors)
     }
+    const xPosition = parseInt(line[0])
+    const yPosition = parseInt(line[2])
+    const orientation = line[4]
 
-    return VALID
+    return {
+      xPosition,
+      yPosition,
+      orientation
+    }
   }
 
   static _isANumber (value) {

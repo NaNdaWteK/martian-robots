@@ -2,9 +2,11 @@ const Robot = require('../domain/Robot')
 
 describe('Robot', () => {
   test('know if started position', () => {
-    const inputLine = '1 0 E'
+    const robot = new Robot()
 
-    const robot = new Robot(inputLine)
+    robot.setOrientation('E')
+    robot.setXPosition(1)
+    robot.setYPosition(0)
 
     expect(robot.xPosition).toBe(1)
     expect(robot.yPosition).toBe(0)
