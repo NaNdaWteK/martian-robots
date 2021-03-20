@@ -29,14 +29,14 @@ describe('Validate', () => {
   })
 
   test('known errors in input mars line', () => {
-    const line = '5 X '
+    const line = '5 X'
 
     try {
       Validations.prepareMarsInputLine(line)
     } catch (error) {
       expect(error.message).toBe('Some errors checking Mars input line')
       expect(error.status).toBe('KO')
-      expect(error.errors.length).toBe(2)
+      expect(error.errors[0]).toBe('Mars input types are not valid')
     }
   })
   test('known errors in input robots position line', () => {
@@ -47,7 +47,7 @@ describe('Validate', () => {
     } catch (error) {
       expect(error.message).toBe('Some errors checking Robots position input line')
       expect(error.status).toBe('KO')
-      expect(error.errors.length).toBe(2)
+      expect(error.errors[0]).toBe('Robot input direction is incorrect')
     }
   })
   test('known errors if there are no valid robots movements in line', () => {
@@ -67,6 +67,30 @@ describe('Validate', () => {
       expect(error.message).toBe('Error in robot movements')
       expect(error.status).toBe('KO')
       expect(error.errors.length).toBe(1)
+    }
+  })
+
+  test('known if Mars coordinates exceed maximum', () => {
+    const inputLine = '1 51'
+
+    try {
+      Validations.prepareMarsInputLine(inputLine)
+    } catch (error) {
+      expect(error.message).toBe('Some errors checking Mars input line')
+      expect(error.status).toBe('KO')
+      expect(error.errors[0]).toBe('Mars coordinates exceed the maximum')
+    }
+  })
+
+  test('known if Robots coordinates exceed maximum', () => {
+    const inputLine = '1 51 E'
+
+    try {
+      Validations.prepareRobotInputPositionLine(inputLine)
+    } catch (error) {
+      expect(error.message).toBe('Some errors checking Robots position input line')
+      expect(error.status).toBe('KO')
+      expect(error.errors[0]).toBe('Robot coordinates exceed the maximum')
     }
   })
 })

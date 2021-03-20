@@ -9,19 +9,23 @@ ValidationException.prototype = Error.prototype
 
 class Validations {
   static prepareMarsInputLine (line) {
-    const LINE_SIZE = 3
+    const MAX_LINE_SIZE = 5
+    const MIN_LINE_SIZE = 3
     const errors = []
-    if (line.length > LINE_SIZE) errors.push('Mars input line is to big')
-    if (line.length < LINE_SIZE) errors.push('Mars input line is to small')
-    if (!Validations._isANumber(line[0]) || !Validations._isANumber(line[2])) {
+    const [upper, right] = line.split(' ')
+    if (line.length > MAX_LINE_SIZE) errors.push('Mars input line is to big')
+    if (line.length < MIN_LINE_SIZE) errors.push('Mars input line is to small')
+    if (!Validations._isANumber(upper) || !Validations._isANumber(right)) {
       errors.push('Mars input types are not valid')
     }
-
+    if (Validations._isCoordinateGreaterThanMaximum(upper) || Validations._isCoordinateGreaterThanMaximum(right)) {
+      errors.push('Mars coordinates exceed the maximum')
+    }
     if (errors.length) {
       throw ValidationException('Some errors checking Mars input line', errors)
     }
-    const verticalSize = parseInt(line[0])
-    const horizontalSize = parseInt(line[2])
+    const verticalSize = parseInt(upper)
+    const horizontalSize = parseInt(right)
 
     return {
       verticalSize,
@@ -30,23 +34,27 @@ class Validations {
   }
 
   static prepareRobotInputPositionLine (line) {
-    const LINE_SIZE = 5
+    const MAX_LINE_SIZE = 7
+    const MIN_LINE_SIZE = 5
     const validOrientationDirections = ['N', 'S', 'E', 'W']
     const errors = []
-    if (line.length > LINE_SIZE) errors.push('Robot input position line is to big')
-    if (line.length < LINE_SIZE) errors.push('Robot input position line is to small')
-    if (!Validations._isANumber(line[0]) || !Validations._isANumber(line[2])) {
+    const [xCoordinate, yCoordinate, orientation ] = line.split(' ')
+    if (line.length > MAX_LINE_SIZE) errors.push('Robot input position line is to big')
+    if (line.length < MIN_LINE_SIZE) errors.push('Robot input position line is to small')
+    if (!Validations._isANumber(xCoordinate) || !Validations._isANumber(yCoordinate)) {
       errors.push('Robot input position line types are not valid')
     }
-    if (!validOrientationDirections.includes(line[4])) {
+    if (Validations._isCoordinateGreaterThanMaximum(xCoordinate) || Validations._isCoordinateGreaterThanMaximum(yCoordinate)) {
+      errors.push('Robot coordinates exceed the maximum')
+    }
+    if (!validOrientationDirections.includes(orientation)) {
       errors.push('Robot input direction is incorrect')
     }
     if (errors.length) {
       throw ValidationException('Some errors checking Robots position input line', errors)
     }
-    const xPosition = parseInt(line[0])
-    const yPosition = parseInt(line[2])
-    const orientation = line[4]
+    const xPosition = parseInt(xCoordinate)
+    const yPosition = parseInt(yCoordinate)
 
     return {
       xPosition,
@@ -73,6 +81,12 @@ class Validations {
 
   static _isANumber (value) {
     return value && !isNaN(parseInt(value))
+  }
+
+  static _isCoordinateGreaterThanMaximum (coordinate) {
+    const MAXIMUM = 50
+
+    return coordinate > MAXIMUM
   }
 }
 
