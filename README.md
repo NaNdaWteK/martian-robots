@@ -4,10 +4,12 @@
 
 ### Run instructions
 
+`docker-compose up -d mongo`
 `npm start`
 
 ### Test instructions
 
+`docker-compose up -d mongo`
 `npm test`
 
 ## With docker
