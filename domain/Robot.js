@@ -1,20 +1,26 @@
 const Direction = require('./Direction')
+const Scent = require('../domain/Scent')
 
 class Robot {
-  constructor (movements) {
+  constructor (movements, planet) {
     this.movements = movements
+    this.planet = planet
     this.lost = false
   }
 
-  move (planet) {
+  move () {
     for (const movement of this.movements) {
       if (movement !== 'F') {
         this._rotateRobot(movement)
       } else {
-        this._moveForward(planet)
+        this._moveForward()
       }
       if (this.lost) break
     }
+  }
+
+  startScentScenario () {
+    this.scent = new Scent(this.planet)
   }
 
   setPosition (xPosition, yPosition, orientation) {
@@ -39,52 +45,52 @@ class Robot {
     this.orientation = Direction.from(this.orientation).rotateTo(movement)
   }
 
-  _moveForward (planet) {
+  _moveForward () {
     if (this.orientation === 'N') {
-      this._moveToNorth(planet)
+      this._moveToNorth()
     } else if (this.orientation === 'S') {
-      this._moveToSouth(planet)
+      this._moveToSouth()
     } else if (this.orientation === 'E') {
-      this._moveToEast(planet)
+      this._moveToEast()
     } else if (this.orientation === 'W') {
-      this._moveToWest(planet)
+      this._moveToWest()
     }
   }
 
-  _moveToWest (planet) {
+  _moveToWest () {
     const position = this.xPosition - 1
-    if (this._isLostOnXAxis(position, planet)) {
-      return this._setLostRobot(planet)
+    if (this._isLostOnXAxis(position)) {
+      return this._setLostRobot()
     }
-    this._updateXPosition(planet, position)
+    this._updateXPosition(position)
   }
 
-  _moveToEast (planet) {
+  _moveToEast () {
     const position = this.xPosition + 1
-    if (this._isLostOnXAxis(position, planet)) {
-      return this._setLostRobot(planet)
+    if (this._isLostOnXAxis(position)) {
+      return this._setLostRobot()
     }
-    this._updateXPosition(planet, position)
+    this._updateXPosition(position)
   }
 
-  _moveToSouth (planet) {
+  _moveToSouth () {
     const position = this.yPosition - 1
-    if (this._isLostOnYAxis(position, planet)) {
-      return this._setLostRobot(planet)
+    if (this._isLostOnYAxis(position)) {
+      return this._setLostRobot()
     }
-    this._updateYPosition(planet, position)
+    this._updateYPosition(position)
   }
 
-  _moveToNorth (planet) {
+  _moveToNorth () {
     const position = this.yPosition + 1
-    if (this._isLostOnYAxis(position, planet)) {
-      return this._setLostRobot(planet)
+    if (this._isLostOnYAxis(position)) {
+      return this._setLostRobot()
     }
-    this._updateYPosition(planet, position)
+    this._updateYPosition(position)
   }
 
-  _setLostRobot (planet) {
-    planet.lostRobot(this.xPosition, this.yPosition)
+  _setLostRobot () {
+    this.planet.lostRobot(this.xPosition, this.yPosition)
     this.lost = true
   }
 
@@ -93,42 +99,42 @@ class Robot {
       this._willBeLostOnXAxis(planet)
   }
 
-  _willBeLostOnXAxis (planet) {
-    return !planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
-      planet.wantToBeOutOnXAxis(this.xPosition)
+  _willBeLostOnXAxis () {
+    return !this.scent.hasLostRobotScent(this.xPosition, this.yPosition) &&
+      this.scent.wantToBeOutOnPlanetXAxis(this.xPosition)
   }
 
-  _goesOutOnHorizontalAxis (position, planet) {
-    return position > planet.horizontalSize || position < 0
+  _goesOutOnHorizontalAxis (position) {
+    return position > this.planet.horizontalSize || position < 0
   }
 
-  _isLostOnYAxis (position, planet) {
-    return this._goesOutOnVerticalAxis(position, planet) &&
-      this._willBeLostOnYAxis(planet)
+  _isLostOnYAxis (position) {
+    return this._goesOutOnVerticalAxis(position) &&
+      this._willBeLostOnYAxis()
   }
 
-  _goesOutOnVerticalAxis (position, planet) {
-    return position > planet.verticalSize || position < 0
+  _goesOutOnVerticalAxis (position) {
+    return position > this.planet.verticalSize || position < 0
   }
 
-  _willBeLostOnYAxis (planet) {
-    return !planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
-      planet.wantToBeOutOnYAxis(this.yPosition)
+  _willBeLostOnYAxis () {
+    return !this.scent.hasLostRobotScent(this.xPosition, this.yPosition) &&
+      this.scent.wantToBeOutOnPlanetYAxis(this.yPosition)
   }
 
-  _updateXPosition (planet, position) {
-    if ((!planet.hasLostRobotScent(this.xPosition, this.yPosition)) ||
-      (planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
-        !planet.wantToBeOutOnXAxis(this.xPosition))
+  _updateXPosition (position) {
+    if ((!this.scent.hasLostRobotScent(this.xPosition, this.yPosition)) ||
+      (this.scent.hasLostRobotScent(this.xPosition, this.yPosition) &&
+        !this.scent.wantToBeOutOnPlanetXAxis(this.xPosition))
     ) {
       this.xPosition = position
     }
   }
 
-  _updateYPosition (planet, position) {
-    if ((!planet.hasLostRobotScent(this.xPosition, this.yPosition)) ||
-      (planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
-        !planet.wantToBeOutOnYAxis(this.yPosition))
+  _updateYPosition (position) {
+    if ((!this.scent.hasLostRobotScent(this.xPosition, this.yPosition)) ||
+      (this.scent.hasLostRobotScent(this.xPosition, this.yPosition) &&
+        !this.scent.wantToBeOutOnPlanetYAxis(this.yPosition))
     ) {
       this.yPosition = position
     }

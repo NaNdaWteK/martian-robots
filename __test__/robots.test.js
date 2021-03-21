@@ -26,9 +26,10 @@ describe('Robot', () => {
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
     const movements = Validations.prepareRobotsMovement(movementsLine)
-    const robot = new Robot(movements)
+    const robot = new Robot(movements, planet)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.move(planet)
+    robot.startScentScenario()
+    robot.move()
 
     expect(robot.xPosition).toBe(1)
     expect(robot.yPosition).toBe(1)
@@ -43,9 +44,10 @@ describe('Robot', () => {
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
     const movements = Validations.prepareRobotsMovement(movementsLine)
-    const robot = new Robot(movements)
+    const robot = new Robot(movements, planet)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.move(planet)
+    robot.startScentScenario()
+    robot.move()
 
     expect(robot.xPosition).toBe(3)
     expect(robot.yPosition).toBe(3)
@@ -61,9 +63,10 @@ describe('Robot', () => {
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
     const movements = Validations.prepareRobotsMovement(movementsLine)
-    const robot = new Robot(movements)
+    const robot = new Robot(movements, planet)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.move(planet)
+    robot.startScentScenario()
+    robot.move()
 
     expect(robot.xPosition).toBe(2)
     expect(robot.yPosition).toBe(3)
@@ -77,7 +80,8 @@ function lostARobot (planet) {
   const movementsLine = 'FRRFLLFFRRFLL'
   const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
   const movements = Validations.prepareRobotsMovement(movementsLine)
-  const robot = new Robot(movements)
+  const robot = new Robot(movements, planet)
   robot.setPosition(xPosition, yPosition, orientation)
-  robot.move(planet)
+  robot.startScentScenario()
+  robot.move()
 }
