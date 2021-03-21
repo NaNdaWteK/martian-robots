@@ -4,19 +4,28 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - main
 
 jobs:
   test:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        mongodb-version: [ 4.2 ]
+        node-version: [ 14.x ]
     steps:
       - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
         with:
-          node-version: '14.15.0'
+          node-version: ${{ matrix.node-version }}
+      - name: Start MongoDB v${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.2.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
+      - run: touch .env
+      - run: echo NODE_ENV="testing" > .env
+      - run: echo MONGO_URI="mongodb://localhost:27017/test" >> .env
+      - run: cat .env
       - run: npm install
       - run: npm test
 

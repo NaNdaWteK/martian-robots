@@ -1,4 +1,4 @@
-const splitInputIntoLines = require('../utils/splitInputIntoLines')
+const splitInputIntoLines = require('../../utils/splitInputIntoLines')
 
 class InputTxtReader {
   constructor (path) {
@@ -18,11 +18,11 @@ class InputTxtReader {
   }
 
   _prepareRobots (lines) {
-    let robots = []
+    const robots = []
     const linesToPrepare = [...lines]
     lines.forEach(() => {
       if (linesToPrepare.length > 1) {
-        let robot = {
+        const robot = {
           position: linesToPrepare.shift(),
           movements: linesToPrepare.shift()
         }

@@ -4,10 +4,12 @@
 
 ### Run instructions
 
+`docker-compose up -d mongo`
 `npm start`
 
 ### Test instructions
 
+`docker-compose up -d mongo`
 `npm test`
 
 ## With docker
@@ -101,3 +103,6 @@ position and orientation of the robot. If a robot falls off the edge of the grid
 2 3 S
 ```
 
+### RESULT UML DIAGRAM
+
+![UMLDiagram](./UML/robotsUML.png)

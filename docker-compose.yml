@@ -1,10 +1,16 @@
 version: "3"
 services:
+  mongo:
+    image: mongo
+    ports:
+      - "27017:27017"
   martian-robots:
     build: .
     ports:
       - "8080:8080"
     env_file:
       - .env.testing
+    depends_on:
+      - mongo
     volumes:
       - ./.:/usr/src/app/.

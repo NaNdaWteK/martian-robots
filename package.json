@@ -5,8 +5,8 @@
   "main": "app.js",
   "scripts": {
     "start": "node .",
-    "test": "jest --color --verbose --coverage --runInBand --detectOpenHandles",
-    "test:watch": "jest --color --verbose --coverage --runInBand --detectOpenHandles --watch",
+    "test": "jest --forceExit --color --verbose --coverage --runInBand --detectOpenHandles",
+    "test:watch": "jest --forceExit --color --verbose --coverage --runInBand --watch",
     "lint": "eslint .",
     "lint:fix": "eslint . --fix"
   },
@@ -26,5 +26,9 @@
     "kata"
   ],
   "author": "@nandawtek",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "mongodb": "^3.6.5"
+  }
 }

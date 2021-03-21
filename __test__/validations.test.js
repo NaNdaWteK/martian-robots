@@ -1,7 +1,7 @@
 const Validations = require('../domain/Validations')
 
 describe('Validate', () => {
-  test('prepare planet coordinates from input line', () => {
+  test.skip('prepare planet coordinates from input line', () => {
     const inputLine = '5 3'
 
     const { verticalSize, horizontalSize } = Validations.preparePlanetInputLine(inputLine)
@@ -10,7 +10,7 @@ describe('Validate', () => {
     expect(horizontalSize).toBe(3)
   })
 
-  test('prepare robot position from input line', () => {
+  test.skip('prepare robot position from input line', () => {
     const inputLine = '1 0 E'
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(inputLine)
@@ -20,7 +20,7 @@ describe('Validate', () => {
     expect(orientation).toBe('E')
   })
 
-  test('prepare robot movements', () => {
+  test.skip('prepare robot movements', () => {
     const line = 'RFRFRFRF'
 
     const result = Validations.prepareRobotsMovement(line)
@@ -40,14 +40,15 @@ describe('Validate', () => {
     }
   })
   test('known errors in input robots position line', () => {
-    const line = '1 0 A '
+    const line = '1 X A '
 
     try {
       Validations.prepareRobotInputPositionLine(line)
     } catch (error) {
       expect(error.message).toBe('Some errors checking Robots position input line')
       expect(error.status).toBe('KO')
-      expect(error.errors[0]).toBe('Robot input direction is incorrect')
+      expect(error.errors[0]).toBe('Robot input position line types are not valid')
+      expect(error.errors[1]).toBe('Robot input direction is incorrect')
     }
   })
   test('known errors if there are no valid robots movements in line', () => {

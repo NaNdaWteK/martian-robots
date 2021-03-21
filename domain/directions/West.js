@@ -1,11 +1,11 @@
-class North {
+class West {
   static rotateTo (direction) {
     const newDirections = {
-      'L': 'W',
-      'R': 'E'
+      L: 'S',
+      R: 'N'
     }
     return newDirections[direction]
   }
 }
 
-module.exports = North
+module.exports = West
