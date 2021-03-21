@@ -1,4 +1,4 @@
-const Direction = require('./Direction')
+const Direction = require('./directions/Direction')
 const Scent = require('../domain/Scent')
 
 class Robot {

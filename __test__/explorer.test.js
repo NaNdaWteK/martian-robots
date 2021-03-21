@@ -1,6 +1,6 @@
 const path = require('path')
 const inputPath = path.join(__dirname, './testSupport/input.txt')
-const InputTxtReader = require('../domain/InputTxtReader')
+const InputTxtReader = require('../domain/readers/InputTxtReader')
 const Explorer = require('../domain/Explorer')
 
 describe('Explorer', () => {

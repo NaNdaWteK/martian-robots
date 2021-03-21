@@ -1,4 +1,4 @@
-const splitInputIntoLines = require('../utils/splitInputIntoLines')
+const splitInputIntoLines = require('../../utils/splitInputIntoLines')
 
 class InputTxtReader {
   constructor (path) {
