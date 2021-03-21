@@ -55,8 +55,7 @@ class Robot {
   _moveToWest(planet) {
     const position = this.xPosition - 1
     if (this._isLostOnXAxis(position, planet)) {
-      planet.lostRobot(this.xPosition, this.yPosition)
-      return this.lost = true
+      return this._setLostRobot(planet)
     }
     this._updateXPosition(planet, position)
   }
@@ -64,8 +63,7 @@ class Robot {
   _moveToEast(planet) {
     const position = this.xPosition + 1
     if (this._isLostOnXAxis(position, planet)) {
-      planet.lostRobot(this.xPosition, this.yPosition)
-      return this.lost = true
+      return this._setLostRobot(planet)
     }
     this._updateXPosition(planet, position)
   }
@@ -73,8 +71,7 @@ class Robot {
   _moveToSouth(planet) {
     const position = this.yPosition - 1
     if (this._isLostOnYAxis(position, planet)) {
-      planet.lostRobot(this.xPosition, this.yPosition)
-      return this.lost = true
+      return this._setLostRobot(planet)
     }
     this._updateYPosition(planet, position)
   }
@@ -82,10 +79,14 @@ class Robot {
   _moveToNorth(planet) {
     const position = this.yPosition + 1
     if (this._isLostOnYAxis(position, planet)) {
-      planet.lostRobot(this.xPosition, this.yPosition)
-      return this.lost = true
+      return this._setLostRobot(planet)
     }
     this._updateYPosition(planet, position)
+  }
+
+  _setLostRobot(planet) {
+    planet.lostRobot(this.xPosition, this.yPosition)
+    return this.lost = true
   }
 
   _isLostOnXAxis(position, planet) {
