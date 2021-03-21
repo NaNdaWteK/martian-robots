@@ -6,7 +6,7 @@ class Planet {
   }
 
   lostRobot (x, y) {
-    const position ={
+    const position = {
       xPosition: x,
       yPosition: y
     }
@@ -25,8 +25,8 @@ class Planet {
     return this.lostRobots.find(lostRobot => this._wasRobotLostHere(lostRobot, x, y))
   }
 
-  _wasRobotLostHere(lostRobot, x, y) {
-    return lostRobot.xPosition === x && lostRobot.yPosition === y;
+  _wasRobotLostHere (lostRobot, x, y) {
+    return lostRobot.xPosition === x && lostRobot.yPosition === y
   }
 }
 

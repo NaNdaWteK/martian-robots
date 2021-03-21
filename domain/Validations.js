@@ -1,4 +1,4 @@
-const ValidationException = (message, errors)  => {
+const ValidationException = (message, errors) => {
   return {
     message,
     errors,
@@ -38,7 +38,7 @@ class Validations {
     const MIN_LINE_SIZE = 5
     const validOrientationDirections = ['N', 'S', 'E', 'W']
     const errors = []
-    const [xCoordinate, yCoordinate, orientation ] = line.split(' ')
+    const [xCoordinate, yCoordinate, orientation] = line.split(' ')
     if (line.length > MAX_LINE_SIZE) errors.push('Robot input position line is to big')
     if (line.length < MIN_LINE_SIZE) errors.push('Robot input position line is to small')
     if (!Validations._isANumber(xCoordinate) || !Validations._isANumber(yCoordinate)) {
