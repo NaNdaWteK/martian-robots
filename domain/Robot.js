@@ -35,6 +35,10 @@ class Robot {
     this.yPosition = yPosition
   }
 
+  _rotateRobot(movement) {
+    this.orientation = Direction.from(this.orientation).rotateTo(movement)
+  }
+
   _moveForward(planet) {
     if (this.orientation === 'N') {
       this._moveToNorth(planet)
@@ -50,39 +54,86 @@ class Robot {
 
   _moveToWest(planet) {
     const position = this.xPosition - 1
-    if (this._isLostOnHorizontalAxis(position, planet.horizontalSize)) return this.lost = true
-    this.xPosition = position
+    if (this._isLostOnXAxis(position, planet)) {
+      planet.lostRobot(this.xPosition, this.yPosition)
+      return this.lost = true
+    }
+    this._updateXPosition(planet, position)
   }
 
   _moveToEast(planet) {
     const position = this.xPosition + 1
-    if (this._isLostOnHorizontalAxis(position, planet.horizontalSize)) return this.lost = true
-    this.xPosition = position
+    if (this._isLostOnXAxis(position, planet)) {
+      planet.lostRobot(this.xPosition, this.yPosition)
+      return this.lost = true
+    }
+    this._updateXPosition(planet, position)
   }
 
   _moveToSouth(planet) {
     const position = this.yPosition - 1
-    if (this._isLostOnVerticalAxis(position, planet.verticalSize)) return this.lost = true
-    this.yPosition = position
+    if (this._isLostOnYAxis(position, planet)) {
+      planet.lostRobot(this.xPosition, this.yPosition)
+      return this.lost = true
+    }
+    this._updateYPosition(planet, position)
   }
 
   _moveToNorth(planet) {
     const position = this.yPosition + 1
-    if (this._isLostOnVerticalAxis(position, planet.verticalSize)) return this.lost = true
-    this.yPosition = position
+    if (this._isLostOnYAxis(position, planet)) {
+      planet.lostRobot(this.xPosition, this.yPosition)
+      return this.lost = true
+    }
+    this._updateYPosition(planet, position)
   }
 
-  _isLostOnHorizontalAxis(position, horizontalSize) {
-    return position > horizontalSize || position < 0;
+  _isLostOnXAxis(position, planet) {
+    return this._goesOutOnHorizontalAxis(position, planet) &&
+      this._willBeLostOnXAxis(planet)
   }
 
-  _isLostOnVerticalAxis(position, verticalSize) {
-    return position > verticalSize || position < 0;
+  _willBeLostOnXAxis (planet) {
+    return !planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
+      planet.wantToBeOutOnXAxis(this.xPosition)
   }
 
-  _rotateRobot(movement) {
-    this.orientation = Direction.from(this.orientation).rotateTo(movement)
+  _goesOutOnHorizontalAxis(position, planet) {
+    return position > planet.horizontalSize || position < 0;
   }
+
+  _isLostOnYAxis(position, planet) {
+    return this._goesOutOnVerticalAxis(position, planet) &&
+      this._willBeLostOnYAxis(planet)
+  }
+
+  _goesOutOnVerticalAxis(position, planet) {
+    return position > planet.verticalSize || position < 0;
+  }
+
+  _willBeLostOnYAxis (planet) {
+    return !planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
+      planet.wantToBeOutOnYAxis(this.yPosition)
+  }
+
+  _updateXPosition(planet, position) {
+    if ((!planet.hasLostRobotScent(this.xPosition, this.yPosition)) ||
+      (planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
+        !planet.wantToBeOutOnXAxis(this.xPosition))
+    ) {
+      this.xPosition = position
+    }
+  }
+
+  _updateYPosition(planet, position) {
+    if ((!planet.hasLostRobotScent(this.xPosition, this.yPosition)) ||
+      (planet.hasLostRobotScent(this.xPosition, this.yPosition) &&
+        !planet.wantToBeOutOnYAxis(this.yPosition))
+    ) {
+      this.yPosition = position
+    }
+  }
+
 }
 
 module.exports = Robot

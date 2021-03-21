@@ -35,6 +35,7 @@ describe('Robot', () => {
     expect(robot.orientation).toBe('E')
     expect(robot.lost).toBe(false)
   })
+
   test('can be lost', () => {
     const positionLine = '3 2 N'
     const movementsLine = 'FRRFLLFFRRFLL'
@@ -51,4 +52,32 @@ describe('Robot', () => {
     expect(robot.orientation).toBe('N')
     expect(robot.lost).toBe(true)
   })
+
+  test('can not be lost at same point of other robot was lost', () => {
+    const planet = new Planet(5, 3)
+    lostARobot(planet)
+    const positionLine = '0 3 W'
+    const movementsLine = 'LLFFFLFLFL'
+
+    const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
+    const movements = Validations.prepareRobotsMovement(movementsLine)
+    const robot = new Robot(movements)
+    robot.setPosition(xPosition, yPosition, orientation)
+    robot.move(planet)
+
+    expect(robot.xPosition).toBe(2)
+    expect(robot.yPosition).toBe(3)
+    expect(robot.orientation).toBe('S')
+    expect(robot.lost).toBe(false)
+  })
 })
+
+function lostARobot (planet) {
+  const positionLine = '3 2 N'
+  const movementsLine = 'FRRFLLFFRRFLL'
+  const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(positionLine)
+  const movements = Validations.prepareRobotsMovement(movementsLine)
+  const robot = new Robot(movements)
+  robot.setPosition(xPosition, yPosition, orientation)
+  robot.move(planet)
+}
