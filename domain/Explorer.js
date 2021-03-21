@@ -14,6 +14,7 @@ class Explorer {
       robot.startScentScenario()
       robot.move()
     })
+    return this
   }
 
   _preparePlanet (planetLine) {

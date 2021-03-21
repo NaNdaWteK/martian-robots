@@ -1,5 +1,10 @@
 version: "3"
 services:
+  mongo:
+    image: mongo
+    network_mode: "host"
+    ports:
+      - "27017:27017"
   martian-robots:
     build: .
     ports:

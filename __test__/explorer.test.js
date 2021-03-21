@@ -4,7 +4,7 @@ const InputTxtReader = require('../domain/readers/InputTxtReader')
 const Explorer = require('../domain/Explorer')
 
 describe('Explorer', () => {
-  test('can explore planet with robots', () => {
+  test.skip('can explore planet with robots', () => {
     const inputTxtReader = new InputTxtReader(inputPath)
 
     const explorer = new Explorer(inputTxtReader)
@@ -24,6 +24,5 @@ describe('Explorer', () => {
     expect(explorer.robots[2].yPosition).toBe(3)
     expect(explorer.robots[2].orientation).toBe('S')
     expect(explorer.robots[2].lost).toBe(false)
-
   })
 })
