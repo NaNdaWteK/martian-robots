@@ -22,11 +22,10 @@ jobs:
         uses: supercharge/mongodb-github-action@1.2.0
         with:
           mongodb-version: ${{ matrix.mongodb-version }}
-      - run: |
-        touch .env
-        echo NODE_ENV="testing" > .env
-        echo MONGO_URI="mongodb://localhost:27017/test" >> .env
-        cat .env
+      - run: touch .env
+      - run: echo NODE_ENV="testing" > .env
+      - run: echo MONGO_URI="mongodb://localhost:27017/test" >> .env
+      - run: cat .env
       - run: npm install
       - run: npm test
 
