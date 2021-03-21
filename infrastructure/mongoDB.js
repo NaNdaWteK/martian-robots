@@ -6,9 +6,9 @@ let _db = null
 const connection = () => {
   return MongoClient.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(client => {
-    _db = client.db()
-    return _db
-  })
+      _db = client.db()
+      return _db
+    })
 }
 
 const getDB = () => {

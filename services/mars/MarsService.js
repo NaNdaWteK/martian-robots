@@ -15,8 +15,8 @@ class MarsService {
     return MongoRepository.addExplorationResult(document)
   }
 
-  static _prepareDocument(result) {
-    const document = {...result}
+  static _prepareDocument (result) {
+    const document = { ...result }
     MarsService._removeScentFromRobots(document)
     MarsService._removePlanetFromRobots(document)
     document.planetName = 'Mars'

@@ -6,7 +6,7 @@ const MarsService = require('../services/mars/MarsService')
 
 describe('MarsService', () => {
   test('can be explored', async () => {
-    let movements = ["R", "F", "R", "F", "R", "F", "R", "F"]
+    let movements = ['R', 'F', 'R', 'F', 'R', 'F', 'R', 'F']
     let executedMovements = [...movements]
     const result = await MarsService.explore(inputPath)
 
@@ -20,16 +20,16 @@ describe('MarsService', () => {
     expect(result.robots[0].yPosition).toBe(1)
     expect(result.robots[0].orientation).toBe('E')
     expect(result.robots[0].lost).toBe(false)
-    movements = ["F", "R", "R", "F", "L", "L", "F", "F", "R", "R", "F", "L", "L"]
-    executedMovements = ["F", "R", "R", "F", "L", "L", "F", "F"]
+    movements = ['F', 'R', 'R', 'F', 'L', 'L', 'F', 'F', 'R', 'R', 'F', 'L', 'L']
+    executedMovements = ['F', 'R', 'R', 'F', 'L', 'L', 'F', 'F']
     expect(result.robots[1].movements).toMatchObject(movements)
     expect(result.robots[1].executedMovements).toMatchObject(executedMovements)
     expect(result.robots[1].xPosition).toBe(3)
     expect(result.robots[1].yPosition).toBe(3)
     expect(result.robots[1].orientation).toBe('N')
     expect(result.robots[1].lost).toBe(true)
-    movements = ["L", "L", "F", "F", "F", "L", "F", "L", "F", "L"]
-    executedMovements = ["L", "L", "F", "F", "F", "L", "L", "F", "L"]
+    movements = ['L', 'L', 'F', 'F', 'F', 'L', 'F', 'L', 'F', 'L']
+    executedMovements = ['L', 'L', 'F', 'F', 'F', 'L', 'L', 'F', 'L']
     expect(result.robots[2].movements.length).toBeGreaterThan(result.robots[2].executedMovements.length)
     expect(result.robots[2].movements).toMatchObject(movements)
     expect(result.robots[2].executedMovements).toMatchObject(executedMovements)

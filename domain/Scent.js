@@ -1,5 +1,5 @@
 class Scent {
-  constructor(planet) {
+  constructor (planet) {
     this.planet = planet
   }
 

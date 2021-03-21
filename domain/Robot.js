@@ -10,7 +10,7 @@ class Robot {
   }
 
   move () {
-    const executedMovements = [ ...this.movements ]
+    const executedMovements = [...this.movements]
     for (const movement of this.movements) {
       this.executedMovements.push(executedMovements.shift())
       if (movement !== 'F') {
