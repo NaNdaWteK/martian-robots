@@ -2,7 +2,7 @@ const Robot = require('../domain/Robot')
 const Planet = require('../domain/Planet')
 const Validations = require('../domain/Validations')
 
-describe('Robot', () => {
+describe.skip('Robot', () => {
   test('can be initialized with valid data', () => {
     const movementsResult = ['R', 'F', 'R', 'F', 'R', 'F', 'R', 'F']
     const positionLine = '1 0 E'

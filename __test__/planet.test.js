@@ -1,7 +1,7 @@
 const Planet = require('../domain/Planet')
 const Scent = require('../domain/Scent')
 
-describe('Planet', () => {
+describe.skip('Planet', () => {
   test('known its coordinates sizes', () => {
     const verticalSize = 3
     const horizontalSize = 5

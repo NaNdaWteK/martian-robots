@@ -1,7 +1,7 @@
 const Validations = require('../domain/Validations')
 
 describe('Validate', () => {
-  test('prepare planet coordinates from input line', () => {
+  test.skip('prepare planet coordinates from input line', () => {
     const inputLine = '5 3'
 
     const { verticalSize, horizontalSize } = Validations.preparePlanetInputLine(inputLine)
@@ -10,7 +10,7 @@ describe('Validate', () => {
     expect(horizontalSize).toBe(3)
   })
 
-  test('prepare robot position from input line', () => {
+  test.skip('prepare robot position from input line', () => {
     const inputLine = '1 0 E'
 
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(inputLine)
@@ -20,7 +20,7 @@ describe('Validate', () => {
     expect(orientation).toBe('E')
   })
 
-  test('prepare robot movements', () => {
+  test.skip('prepare robot movements', () => {
     const line = 'RFRFRFRF'
 
     const result = Validations.prepareRobotsMovement(line)
