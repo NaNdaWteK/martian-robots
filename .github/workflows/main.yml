@@ -4,9 +4,6 @@ on:
   push:
     branches:
       - develop
-  pull_request:
-    branches:
-      - main
 
 jobs:
   test:
@@ -27,7 +24,7 @@ jobs:
           mongodb-version: ${{ matrix.mongodb-version }}
       - run: |
         touch .env
-        echo NODE_ENV="testing" >> .env
+        echo NODE_ENV="testing" > .env
         echo MONGO_URI="mongodb://localhost:27017/test" >> .env
         cat .env
       - run: npm install
