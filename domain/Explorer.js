@@ -9,6 +9,13 @@ class Explorer {
     this.robots = this._prepareRobots(robotsLines)
   }
 
+  execute () {
+    this.robots.forEach(robot => {
+      robot.startScentScenario()
+      robot.move()
+    })
+  }
+
   _preparePlanet (planetLine) {
     const { verticalSize, horizontalSize } = Validations.preparePlanetInputLine(planetLine)
     return new Planet(verticalSize, horizontalSize)
@@ -23,7 +30,7 @@ class Explorer {
   _prepareRobot (robotLine) {
     const movements = Validations.prepareRobotsMovement(robotLine.movements)
     const { xPosition, yPosition, orientation } = Validations.prepareRobotInputPositionLine(robotLine.position)
-    const robot = new Robot(movements)
+    const robot = new Robot(movements, this.planet)
     robot.setPosition(xPosition, yPosition, orientation)
 
     return robot
