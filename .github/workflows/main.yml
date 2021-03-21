@@ -11,7 +11,20 @@ on:
 jobs:
   test:
     runs-on: ubuntu-20.04
+    strategy:
+      matrix:
+        mongodb-version: [ 3.6, 4.0, 4.2 ]
     steps:
+      - name: Create env file
+        run: |
+          touch .env
+          echo NODE_ENV="testing" >> .env
+          echo MONGO_URI="mongodb://localhost:27017/test" >> .env
+          cat .env
+      - name: Start MongoDB v${{ matrix.mongodb-version }}
+        uses: supercharge/mongodb-github-action@1.2.0
+        with:
+          mongodb-version: ${{ matrix.mongodb-version }}
       - uses: actions/checkout@v2
       - name: Use Node.js
         uses: actions/setup-node@v1
