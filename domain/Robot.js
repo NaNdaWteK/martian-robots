@@ -4,12 +4,15 @@ const Scent = require('../domain/Scent')
 class Robot {
   constructor (movements, planet) {
     this.movements = movements
+    this.executedMovements = []
     this.planet = planet
     this.lost = false
   }
 
   move () {
+    const executedMovements = [ ...this.movements ]
     for (const movement of this.movements) {
+      this.executedMovements.push(executedMovements.shift())
       if (movement !== 'F') {
         this._rotateRobot(movement)
       } else {
@@ -128,6 +131,8 @@ class Robot {
         !this.scent.wantToBeOutOnPlanetXAxis(this.xPosition))
     ) {
       this.xPosition = position
+    } else {
+      this.executedMovements.pop()
     }
   }
 
@@ -137,6 +142,8 @@ class Robot {
         !this.scent.wantToBeOutOnPlanetYAxis(this.yPosition))
     ) {
       this.yPosition = position
+    } else {
+      this.executedMovements.pop()
     }
   }
 }

@@ -20,7 +20,7 @@ class MarsService {
     MarsService._removeScentFromRobots(document)
     MarsService._removePlanetFromRobots(document)
     document.planetName = 'Mars'
-    
+
     return document
   }
 
