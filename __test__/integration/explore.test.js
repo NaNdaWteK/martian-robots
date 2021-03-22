@@ -13,7 +13,7 @@ describe('Mars', () => {
     expect(response.body.planet.lostRobots.length).toBe(1)
   })
   test('needs valid token to be explored', async () => {
-    const response = await request(app).get(`/${process.env.RESTAPI_VERSION}/explore`)
+    const response = await request(app).get(`/${process.env.API_VERSION}/explore`)
       .set('X-Access-Token', 'secre')
     expect(response.statusCode).toBe(BAD_REQUEST)
   })
