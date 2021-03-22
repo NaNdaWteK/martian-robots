@@ -6,6 +6,8 @@ const checkEnvVars = () => {
     assert.ok(process.env.NODE_ENV)
     assert.ok(process.env.MONGO_URI)
     assert.ok(process.env.API_PORT)
+    assert.ok(process.env.API_TOKEN)
+    assert.ok(process.env.RESTAPI_VERSION)
   } catch (err) {
     throw new Error(`Set the Environment Variables needed!\n${err}`)
   }

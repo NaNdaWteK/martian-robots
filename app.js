@@ -16,8 +16,12 @@ app.use((req, res, next) => {
   next()
 })
 
-app.get('/v1/explore', async (req, res, next) => {
+app.get(`/${process.env.RESTAPI_VERSION}/explore`, async (req, res, next) => {
   try {
+    const token = req.headers['x-access-token']
+    if (token !== process.env.API_TOKEN) {
+      throw new Error('You have not access to request')
+    }
     const response = await Actions.explore.invoke()
     res.status(SUCCESS).send(response)
   } catch (error) {

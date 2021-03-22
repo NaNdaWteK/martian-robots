@@ -10,6 +10,6 @@ RUN npm install
 
 COPY . .
 
-EXPOSE ${RESTAPI_PORT}
+EXPOSE 8084
 
 CMD ["node", "."]

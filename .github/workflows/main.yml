@@ -26,6 +26,8 @@ jobs:
       - run: echo NODE_ENV="testing" > .env
       - run: echo MONGO_URI="mongodb://localhost:27017/test" >> .env
       - run: echo API_PORT="8084" >> .env
+      - run: echo API_TOKEN="secret" >> .env
+      - run: echo RESTAPI_VERSION="v1" >> .env
       - run: cat .env
       - run: npm install
       - run: npm test
