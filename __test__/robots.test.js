@@ -28,7 +28,6 @@ describe.skip('Robot', () => {
     const movements = Validations.prepareRobotsMovement(movementsLine)
     const robot = new Robot(movements, planet)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.startScentScenario()
     robot.move()
 
     expect(robot.xPosition).toBe(1)
@@ -46,7 +45,6 @@ describe.skip('Robot', () => {
     const movements = Validations.prepareRobotsMovement(movementsLine)
     const robot = new Robot(movements, planet)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.startScentScenario()
     robot.move()
 
     expect(robot.xPosition).toBe(3)
@@ -65,7 +63,6 @@ describe.skip('Robot', () => {
     const movements = Validations.prepareRobotsMovement(movementsLine)
     const robot = new Robot(movements, planet)
     robot.setPosition(xPosition, yPosition, orientation)
-    robot.startScentScenario()
     robot.move()
 
     expect(robot.xPosition).toBe(2)
@@ -82,6 +79,5 @@ function lostARobot (planet) {
   const movements = Validations.prepareRobotsMovement(movementsLine)
   const robot = new Robot(movements, planet)
   robot.setPosition(xPosition, yPosition, orientation)
-  robot.startScentScenario()
   robot.move()
 }

@@ -1,15 +1,34 @@
 const { loadEnvVars } = require('./utils/environment')
-const path = require('path')
-const util = require('util')
 loadEnvVars()
+const express = require('express')
+const Actions = require('./actions')
+const SUCCESS = 200
+const BAD_REQUEST = 400
 
-const inputPath = path.join(__dirname, './utils/input.txt')
-const MarsService = require('./services/mars/MarsService')
+const app = express()
 
-MarsService.explore(inputPath)
-  .then(result => {
-    console.log(util.inspect(result, {showHidden: false, depth: null, colors: true}))
-  })
-  .catch(error => {
-    console.log(error)
-  })
+app.use(express.urlencoded({ extended: false }))
+
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*')
+  res.header('Access-Control-Allow-Methods', '*')
+  res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept')
+  next()
+})
+
+app.get('/v1/explore', async (req, res, next) => {
+  try {
+    const response = await Actions.explore.invoke()
+    res.status(SUCCESS).send(response)
+  } catch (error) {
+    next(error)
+  }
+  next()
+})
+
+app.use((err, req, res, next) => {
+  res.status(BAD_REQUEST).send(err)
+  next()
+})
+
+module.exports = app

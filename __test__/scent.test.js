@@ -7,9 +7,9 @@ describe('Scent', () => {
     const horizontalSize = 5
 
     const planet = new Planet(horizontalSize, verticalSize)
-    planet.lostRobot(3, 2)
-    const scent = new Scent(planet)
-    expect(scent.wantToBeOutOnPlanetYAxis(4)).toBe(true)
-    expect(scent.wantToBeOutOnPlanetYAxis(0)).toBe(true)
+    planet.setLostRobot(3, 2)
+    const scent = new Scent()
+    expect(scent.wantToBeOutOnPlanetYAxis(4, verticalSize)).toBe(true)
+    expect(scent.wantToBeOutOnPlanetYAxis(0, verticalSize)).toBe(true)
   })
 })

@@ -1,3 +1,5 @@
+const Scent = require('../domain/Scent')
+
 class Planet {
   constructor (horizontalSize, verticalSize) {
     this.verticalSize = verticalSize
@@ -5,7 +7,14 @@ class Planet {
     this.lostRobots = []
   }
 
-  lostRobot (x, y) {
+  setLostStrategy (type) {
+    const Strategies = {
+      scent: Scent
+    }
+    this.saveRobotStrategy = new Strategies[type](this)
+  }
+
+  setLostRobot (x, y) {
     const position = {
       xPosition: x,
       yPosition: y

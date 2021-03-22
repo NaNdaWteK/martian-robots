@@ -5,10 +5,10 @@ const InputTxtReader = require('../../domain/readers/InputTxtReader')
 const MongoRepository = require('../../repository/mars/MongoRepository')
 
 class MarsService {
-  static explore (inputPath) {
+  static explore (inputPath, lostRobotsStrategy = 'scent') {
     const inputTxtReader = new InputTxtReader(inputPath)
 
-    const explorer = new Explorer(inputTxtReader)
+    const explorer = new Explorer(inputTxtReader, lostRobotsStrategy)
     const result = explorer.execute()
     const document = MarsService._prepareDocument(result)
 

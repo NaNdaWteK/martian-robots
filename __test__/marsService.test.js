@@ -8,7 +8,8 @@ describe('MarsService', () => {
   test('can be explored', async () => {
     let movements = ['R', 'F', 'R', 'F', 'R', 'F', 'R', 'F']
     let executedMovements = [...movements]
-    const result = await MarsService.explore(inputPath)
+    const lostRobotStrategy = 'scent'
+    const result = await MarsService.explore(inputPath, lostRobotStrategy)
 
     expect(result.planetName).toBe('Mars')
     expect(result.planet.horizontalSize).toBe(5)

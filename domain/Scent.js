@@ -1,18 +1,14 @@
 class Scent {
-  constructor (planet) {
-    this.planet = planet
+  wantToBeOutOnPlanetXAxis (position, horizontalSize) {
+    return position + 1 > horizontalSize || position - 1 < 0
   }
 
-  wantToBeOutOnPlanetXAxis (position) {
-    return position + 1 > this.planet.horizontalSize || position - 1 < 0
+  wantToBeOutOnPlanetYAxis (position, verticalSize) {
+    return position + 1 > verticalSize || position - 1 < 0
   }
 
-  wantToBeOutOnPlanetYAxis (position) {
-    return position + 1 > this.planet.verticalSize || position - 1 < 0
-  }
-
-  hasLostRobotScent (x, y) {
-    return this.planet.lostRobots.find(lostRobot => this._wasRobotLostHere(lostRobot, x, y))
+  hasLostRobot (lostRobots, x, y) {
+    return lostRobots.find(lostRobot => this._wasRobotLostHere(lostRobot, x, y))
   }
 
   _wasRobotLostHere (lostRobot, x, y) {

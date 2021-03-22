@@ -3,23 +3,24 @@ const Robot = require('./Robot')
 const Validations = require('./Validations')
 
 class Explorer {
-  constructor (inputReader) {
+  constructor (inputReader, lostRobotStrategy) {
     const { planetLine, robotsLines } = inputReader.read()
-    this.planet = this._preparePlanet(planetLine)
+    this.planet = this._preparePlanet(planetLine, lostRobotStrategy)
     this.robots = this._prepareRobots(robotsLines)
   }
 
   execute () {
     this.robots.forEach(robot => {
-      robot.startScentScenario()
       robot.move()
     })
     return this
   }
 
-  _preparePlanet (planetLine) {
+  _preparePlanet (planetLine, lostRobotStrategy) {
     const { verticalSize, horizontalSize } = Validations.preparePlanetInputLine(planetLine)
-    return new Planet(verticalSize, horizontalSize)
+    const planet = new Planet(verticalSize, horizontalSize)
+    planet.setLostStrategy(lostRobotStrategy)
+    return planet
   }
 
   _prepareRobots (robotsLines) {
