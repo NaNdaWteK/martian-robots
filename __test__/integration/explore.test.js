@@ -6,7 +6,7 @@ const BAD_REQUEST=400
 
 describe('Mars', () => {
   test('can be explored', async () => {
-    const response = await request(app).get(`/${process.env.RESTAPI_VERSION}/explore`)
+    const response = await request(app).get(`/${process.env.API_VERSION}/explore`)
       .set('X-Access-Token', 'secret')
     expect(response.statusCode).toBe(SUCCESS)
     expect(response.body.planet.lostRobots.length).toBe(1)
