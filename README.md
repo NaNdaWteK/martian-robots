@@ -23,6 +23,7 @@ You need:
 First of all up in detached mode your image
 
 `make build`
+`make install`
 
 ### Run instructions
 
