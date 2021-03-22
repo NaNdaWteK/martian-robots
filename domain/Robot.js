@@ -121,10 +121,7 @@ class Robot {
   }
 
   _updateXPosition (position) {
-    if ((!this._planetHasLostRobotInCurrentPosition()) ||
-      (this._planetHasLostRobotInCurrentPosition() &&
-        !this.planet.saveRobotStrategy.wantToBeOutOnPlanetXAxis(this.xPosition, this.planet.horizontalSize))
-    ) {
+    if (!this._planetHasLostRobotInCurrentPosition() || this._robotSavedOnXAxis()) {
       this.xPosition = position
     } else {
       this.executedMovements.pop()
@@ -132,14 +129,21 @@ class Robot {
   }
 
   _updateYPosition (position) {
-    if ((!this._planetHasLostRobotInCurrentPosition()) ||
-      (this._planetHasLostRobotInCurrentPosition() &&
-        !this.planet.saveRobotStrategy.wantToBeOutOnPlanetYAxis(this.yPosition, this.planet.verticalSize))
-    ) {
+    if (!this._planetHasLostRobotInCurrentPosition() || this._robotSavedOnYAxis()) {
       this.yPosition = position
     } else {
       this.executedMovements.pop()
     }
+  }
+
+  _robotSavedOnXAxis () {
+    return (this._planetHasLostRobotInCurrentPosition() &&
+      !this.planet.saveRobotStrategy.wantToBeOutOnPlanetXAxis(this.xPosition, this.planet.horizontalSize))
+  }
+
+  _robotSavedOnYAxis () {
+    return this._planetHasLostRobotInCurrentPosition() &&
+      !this.planet.saveRobotStrategy.wantToBeOutOnPlanetYAxis(this.yPosition, this.planet.verticalSize)
   }
 
   _planetHasLostRobotInCurrentPosition () {
