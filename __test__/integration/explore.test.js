@@ -1,4 +1,5 @@
-process.env.NODE_ENV = 'testing'
+const { loadEnvVars } = require('./utils/environment')
+loadEnvVars()
 const request = require('supertest')
 const app = require('../../app')
 const SUCCESS = 200
