@@ -1,4 +1,4 @@
-const { loadEnvVars } = require('./utils/environment')
+const { loadEnvVars } = require('../../utils/environment')
 loadEnvVars()
 const request = require('supertest')
 const app = require('../../app')
