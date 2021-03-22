@@ -8,7 +8,8 @@ const MarsService = require('./services/mars/MarsService')
 
 MarsService.explore(inputPath)
   .then(result => {
-    console.log(util.inspect(result, {showHidden: false, depth: null, colors: true}))
+    console.log(util.inspect(result, { showHidden: false, depth: null, colors: true }))
+    return result
   })
   .catch(error => {
     console.log(error)

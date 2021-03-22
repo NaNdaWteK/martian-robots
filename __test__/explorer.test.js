@@ -3,11 +3,11 @@ const inputPath = path.join(__dirname, './testSupport/input.txt')
 const InputTxtReader = require('../domain/readers/InputTxtReader')
 const Explorer = require('../domain/Explorer')
 
-describe('Explorer', () => {
-  test.skip('can explore planet with robots', () => {
+describe.skip('Explorer', () => {
+  test('can explore planet with robots', () => {
     const inputTxtReader = new InputTxtReader(inputPath)
-
-    const explorer = new Explorer(inputTxtReader)
+    const lostStrategy = 'scent'
+    const explorer = new Explorer(inputTxtReader, lostStrategy)
     explorer.execute()
 
     expect(explorer.planet.horizontalSize).toBe(5)

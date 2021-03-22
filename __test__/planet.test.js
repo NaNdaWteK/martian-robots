@@ -17,9 +17,9 @@ describe.skip('Planet', () => {
 
     const planet = new Planet(horizontalSize, verticalSize)
     planet.lostRobot(3, 2)
-    const scent = new Scent(planet)
+    const scent = new Scent()
 
-    expect(scent.hasLostRobotScent(3, 2)).toBeTruthy()
-    expect(scent.hasLostRobotScent(3, 3)).toBeFalsy()
+    expect(scent.hasLostRobot(planet.lostRobots, 3, 2)).toBeTruthy()
+    expect(scent.hasLostRobot(planet.lostRobots, 3, 3)).toBeFalsy()
   })
 })
