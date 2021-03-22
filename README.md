@@ -2,19 +2,25 @@
 
 ## Without docker
 
+You need:
+
+* mongo [4.2] running on port `27017`
+* node [14.X]
+
+
 ### Run instructions
 
-`docker-compose up -d mongo`
+`npm install`
 `npm start`
 
 ### Test instructions
 
-`docker-compose up -d mongo`
+`npm install`
 `npm test`
 
 ## With docker
 
-First of old up in detached mode your image
+First of all up in detached mode your image
 
 `make build`
 
