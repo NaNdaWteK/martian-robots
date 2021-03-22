@@ -7,7 +7,7 @@ services:
   martian-robots:
     build: .
     ports:
-      - "8080:8080"
+      - "8084:8084"
     env_file:
       - .env.testing
     depends_on:
