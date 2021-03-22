@@ -99,7 +99,7 @@ class Robot {
 
   _willBeLostOnXAxis () {
     return !this._planetHasLostRobotInCurrentPosition() &&
-      this.planet.strategy.wantToBeOutOnPlanetXAxis(this.xPosition, this.planet.horizontalSize)
+      this.planet.saveRobotStrategy.wantToBeOutOnPlanetXAxis(this.xPosition, this.planet.horizontalSize)
   }
 
   _goesOutOnXAxis (position) {
@@ -117,13 +117,13 @@ class Robot {
 
   _willBeLostOnYAxis () {
     return !this._planetHasLostRobotInCurrentPosition() &&
-      this.planet.strategy.wantToBeOutOnPlanetYAxis(this.yPosition, this.planet.verticalSize)
+      this.planet.saveRobotStrategy.wantToBeOutOnPlanetYAxis(this.yPosition, this.planet.verticalSize)
   }
 
   _updateXPosition (position) {
     if ((!this._planetHasLostRobotInCurrentPosition()) ||
       (this._planetHasLostRobotInCurrentPosition() &&
-        !this.planet.strategy.wantToBeOutOnPlanetXAxis(this.xPosition, this.planet.horizontalSize))
+        !this.planet.saveRobotStrategy.wantToBeOutOnPlanetXAxis(this.xPosition, this.planet.horizontalSize))
     ) {
       this.xPosition = position
     } else {
@@ -134,7 +134,7 @@ class Robot {
   _updateYPosition (position) {
     if ((!this._planetHasLostRobotInCurrentPosition()) ||
       (this._planetHasLostRobotInCurrentPosition() &&
-        !this.planet.strategy.wantToBeOutOnPlanetYAxis(this.yPosition, this.planet.verticalSize))
+        !this.planet.saveRobotStrategy.wantToBeOutOnPlanetYAxis(this.yPosition, this.planet.verticalSize))
     ) {
       this.yPosition = position
     } else {
@@ -143,7 +143,7 @@ class Robot {
   }
 
   _planetHasLostRobotInCurrentPosition () {
-    return this.planet.strategy.hasLostRobot(this.planet.lostRobots, this.xPosition, this.yPosition)
+    return this.planet.saveRobotStrategy.hasLostRobot(this.planet.lostRobots, this.xPosition, this.yPosition)
   }
 }
 

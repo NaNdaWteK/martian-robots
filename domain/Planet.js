@@ -11,7 +11,7 @@ class Planet {
     const Strategies = {
       scent: Scent
     }
-    this.strategy = new Strategies[type](this)
+    this.saveRobotStrategy = new Strategies[type](this)
   }
 
   setLostRobot (x, y) {
