@@ -19,7 +19,7 @@ class Explorer {
   _preparePlanet (planetLine, lostRobotStrategy) {
     const { verticalSize, horizontalSize } = Validations.preparePlanetInputLine(planetLine)
     const planet = new Planet(verticalSize, horizontalSize)
-    planet.setLostStrategy(lostRobotStrategy)
+    planet.setLostRobotsStrategy(lostRobotStrategy)
     return planet
   }
 

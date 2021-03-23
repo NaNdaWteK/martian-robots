@@ -7,6 +7,8 @@ You need:
 * mongo [4.2] running on port `27017`
 * node [14.X]
 
+* Copy .env.testing to .env
+
 
 ### Run instructions
 

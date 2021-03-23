@@ -7,7 +7,7 @@ class Planet {
     this.lostRobots = []
   }
 
-  setLostStrategy (type) {
+  setLostRobotsStrategy (type) {
     const Strategies = {
       scent: Scent
     }
