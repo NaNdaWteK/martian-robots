@@ -14,6 +14,18 @@ class Planet {
     this.saveRobotStrategy = new Strategies[type](this)
   }
 
+  robotWillBeLostOnXAxis (xPosition) {
+    return this.saveRobotStrategy.wantToBeOutOnPlanetXAxis(xPosition, this.horizontalSize)
+  }
+
+  robotWillBeLostOnYAxis (yPosition) {
+    return this.saveRobotStrategy.wantToBeOutOnPlanetYAxis(yPosition, this.verticalSize)
+  }
+
+  hasLostRobot (xPosition, yPosition) {
+    return this.saveRobotStrategy.hasLostRobot(this.lostRobots, xPosition, yPosition)
+  }
+
   setLostRobot (x, y) {
     const position = {
       xPosition: x,
